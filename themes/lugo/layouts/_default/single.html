@@ -1,0 +1,22 @@
+{{ define "title" -}}
+{{ .Title }}
+{{- end }}
+{{ define "main" -}}
+
+    <!-- {{ if .Params.toc }} -->
+   <!-- <div class="toc"> -->
+<!-- {{ lang.Translate "table-of-contents" }}: -->
+    <!--     {{ .TableOfContents }} -->
+    <!--     <br> -->
+   <!-- </div> -->
+    <!-- {{ end }} -->
+
+<!-- {{ if and (.IsTranslated) (eq .Section "blog") }} -->
+<!-- {{ range  .Translations }} -->
+<!-- {{ lang.Translate "translations" }}: <a href="{{ .Permalink }}" class="translations">[{{ .Lang | upper }}]</a>&nbsp; -->
+<!-- {{ end }} -->
+<!-- {{ end }} -->
+
+{{ .Content }}
+
+{{- end }}

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language }}">
+<head>
+	<title>{{ if not .IsHome }}{{ .Title | title }} | {{ end }}{{ .Site.Title }}</title>
+	<link rel="canonical" href="{{ .Site.BaseURL }}">
+	<link rel='alternate' type='application/rss+xml' title="{{ .Site.Title }} RSS" href='/index.xml'>
+	<link rel='stylesheet' type='text/css' href='/style.css'>
+	{{ with .Site.Params.favicon }}<link rel="icon" href="{{ . }}">
+	{{ end -}}
+	<meta name="description" content="{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}">
+
+
+{{ $currentPage := . }}
+{{ if or (and (eq .Section "blog") (eq .Page.Kind "page")) (eq .Page.Kind "term") (eq .Page.Kind "taxonomy") }}
+{{ else }}
+   <meta property="og:image" content="{{ .Site.BaseURL}}/favicon.png" >
+{{ end }}
+
+
+
+	{{ if isset .Params "tags" }}<meta name="keywords" content="{{ with .Params.tags }}{{ delimit . ", " }}{{ end }}">
+	{{ end -}}
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="robots" content="index, follow">
+	<meta charset="utf-8">
+</head>
+<body>
+
+{{ if .Site.Menus.main }}{{ partial "nav.html" . }}{{ end -}}
+<main>
+
+  {{ $currentPage := . }}
+  {{ if or (and (eq .Section "blog") (eq .Page.Kind "page")) (eq .Page.Kind "term") (eq .Page.Kind "taxonomy") }}
+   <header><h1 id="tag_{{ .Title }}"><a href="{{ lang.Translate "titleback" }}" class="tohome">{{ block "title" . }}{{ end }}</a></h1></header>
+   {{ end }}
+<article>
+{{ block "main" . }}
+{{ .Content }}
+{{ end }}
+{{ if .Param "nextprev" }}{{ partial "nextprev.html" . -}}{{ end -}}
+{{ if .Param "taglist" }}{{ partial "taglist.html" . }}{{ end -}}
+</article>
+</main>
+{{ block "footer" . }}
+<footer>
+	<a href="{{ lang.Translate "titleback" }}">{{ .Site.BaseURL }}</a>
+	{{- if .Param "showrss" }}<br><br><a href="{{ lang.Translate "rssfeed" }}"><img src="/rss.svg" style="max-height:1.5em" alt="RSS Feed" title="Subscribe via RSS for updates from my blog."></a>{{ end }}
+   <meta property="og:image" content="{{ .Site.BaseURL}}/favicon.png" >
+</footer>
+{{ end }}
+</body>
+</html>

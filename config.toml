@@ -1,0 +1,9 @@
+theme = 'lugo'
+defaultContentLanguageInSubdir = true
+baseURL = 'https://example.com/'
+defaultContentLanguage = 'en'
+title = 'test - Blog'
+summaryLength = '50'
+languageCode = 'en-us'
+tableOfContents = true
+
